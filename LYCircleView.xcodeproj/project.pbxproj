@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0436B81CFC1B5800819057 /* LYCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0436B71CFC1B5800819057 /* LYCircleView.m */; };
 		CE3A60BD1CEAF79600FE062D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A60BC1CEAF79600FE062D /* main.m */; };
 		CE3A60C01CEAF79600FE062D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A60BF1CEAF79600FE062D /* AppDelegate.m */; };
 		CE3A60C31CEAF79600FE062D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A60C21CEAF79600FE062D /* ViewController.m */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE0436B61CFC1B5800819057 /* LYCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYCircleView.h; sourceTree = "<group>"; };
+		CE0436B71CFC1B5800819057 /* LYCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYCircleView.m; sourceTree = "<group>"; };
 		CE3A60B81CEAF79600FE062D /* LYCircleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYCircleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3A60BC1CEAF79600FE062D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE3A60BE1CEAF79600FE062D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				CE3A60BF1CEAF79600FE062D /* AppDelegate.m */,
 				CE3A60C11CEAF79600FE062D /* ViewController.h */,
 				CE3A60C21CEAF79600FE062D /* ViewController.m */,
+				CE0436B61CFC1B5800819057 /* LYCircleView.h */,
+				CE0436B71CFC1B5800819057 /* LYCircleView.m */,
 				CE3A60C41CEAF79600FE062D /* Main.storyboard */,
 				CE3A60C71CEAF79600FE062D /* Assets.xcassets */,
 				CE3A60C91CEAF79600FE062D /* LaunchScreen.storyboard */,
@@ -273,6 +278,7 @@
 				CE3A60C31CEAF79600FE062D /* ViewController.m in Sources */,
 				CE3A60C01CEAF79600FE062D /* AppDelegate.m in Sources */,
 				CE3A60BD1CEAF79600FE062D /* main.m in Sources */,
+				CE0436B81CFC1B5800819057 /* LYCircleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +351,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -414,6 +421,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LYCircleView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.LYCircleView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -425,6 +433,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LYCircleView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.LYCircleView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +505,7 @@
 				CE3A60E71CEAF79600FE062D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE3A60E81CEAF79600FE062D /* Build configuration list for PBXNativeTarget "LYCircleViewTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +514,7 @@
 				CE3A60EA1CEAF79600FE062D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE3A60EB1CEAF79600FE062D /* Build configuration list for PBXNativeTarget "LYCircleViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +523,7 @@
 				CE3A60ED1CEAF79600FE062D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

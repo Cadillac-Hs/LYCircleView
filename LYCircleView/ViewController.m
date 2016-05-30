@@ -7,16 +7,35 @@
 //
 
 #import "ViewController.h"
+#import "LYCircleView.h"
 
-@interface ViewController ()
-
+@interface ViewController ()<LYCircleViewDataSource>
+{
+    NSArray *dataArray;
+    LYCircleView *circle;
+}
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    circle = [[LYCircleView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 300)];
+    circle.dataSource = self;
+    [self.view addSubview:circle];
+}
+
+- (NSArray *)percentOfTheCircle{
+    return @[@"24", @"35",@"11", @"10", @"20"];
+}
+
+- (NSArray *)textStringOfCircle{
+    return @[@"IT", @"金融", @"土木工程", @"传统行业", @"其他"];
+}
+
+- (NSArray *)hexStringOfCircleColor{
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning {
