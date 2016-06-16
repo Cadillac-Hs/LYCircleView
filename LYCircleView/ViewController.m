@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "LYCircleView.h"
 
-@interface ViewController ()<LYCircleViewDataSource>
+@interface ViewController ()<LYCircleViewDataSource,LYCircleViewDelegate>
 {
     NSArray *dataArray;
     LYCircleView *circle;
@@ -20,14 +20,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     circle = [[LYCircleView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 300)];
     circle.dataSource = self;
+    circle.delegate = self;
     [self.view addSubview:circle];
 }
 
+- (void)didSelectCircleViewAtIndex:(NSInteger)index{
+    NSLog(@"%ld",index);
+}
+
 - (NSArray *)percentOfTheCircle{
-    return @[@"24", @"35",@"11", @"10", @"20"];
+    return @[@"20", @"34",@"16", @"10", @"20"];
 }
 
 - (NSArray *)textStringOfCircle{

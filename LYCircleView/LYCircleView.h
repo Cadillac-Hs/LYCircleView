@@ -29,9 +29,21 @@
 
 @end
 
+@protocol LYCircleViewDelegate <NSObject>
+
+@optional
+/**
+ 点击事件代理
+ */
+- (void)didSelectCircleViewAtIndex:(NSInteger)index;
+
+@end
+
 @interface LYCircleView : UIView
 
 @property (nonatomic, weak)id <LYCircleViewDataSource>dataSource;
+
+@property (nonatomic, weak)id <LYCircleViewDelegate>delegate;
 
 ///更新数据
 - (void)reloadData;

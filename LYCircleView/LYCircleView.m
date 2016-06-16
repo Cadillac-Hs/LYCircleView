@@ -28,6 +28,8 @@ static NSInteger secLine = 50;
     
     NSMutableArray *percentArray;
     
+    NSMutableArray *pathArray;
+    
     NSArray *textArray;
     
     BOOL canDraw;
@@ -35,18 +37,23 @@ static NSInteger secLine = 50;
     NSInteger totalAngle;
     
     CGFloat radius;
+    
+    void (^sucBlock)(NSInteger index);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
+        
         [self createColorArray];
         if (self.bounds.size.width >= self.bounds.size.height) {
             radius = self.bounds.size.height / 4.5;
         }else {
             radius = self.bounds.size.width / 4.5;
         }
+        
+        pathArray = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -133,7 +140,7 @@ static NSInteger secLine = 50;
         endPercent = perPercent * 2 * M_PI + endPercent;
         
         [self beginDrawingOnTheContext:context withHexColorString:hexColorArray[i] alpha:1];
-        [self drawCircleOnTheContext:context WithRadius:radius StartAngle:endPercent - curPercent  EndAngle:endPercent];
+        [self drawCircleOnTheContext:context WithRadius:radius StartAngle:endPercent - curPercent EndAngle:endPercent];
         [self endDrawingOnTheContext:context withType:kCGPathFill];
         
         if (textArray.count > 0) {
@@ -145,12 +152,12 @@ static NSInteger secLine = 50;
     }
     //阴影
     [self beginDrawingOnTheContext:context withHexColorString:@"000000" alpha:0.4];
-    [self drawCircleOnTheContext:context WithRadius:radius / 2 StartAngle:0 EndAngle:2 * M_PI];
+    CGContextAddArc(context, CENTER_X, CENTER_Y, radius / 2, 0, 2 * M_PI, 0);
     [self endDrawingOnTheContext:context withType:kCGPathFill];
     
     //中间空白
     [self beginDrawingOnTheContext:context withHexColorString:@"FFFFFF" alpha:1];
-    [self drawCircleOnTheContext:context WithRadius:radius / 2 / 2.5  StartAngle:0 EndAngle:2 * M_PI];
+    CGContextAddArc(context, CENTER_X, CENTER_Y, radius / 2 / 2.5, 0, 2 * M_PI, 0);
     [self endDrawingOnTheContext:context withType:kCGPathFill];
 }
 
@@ -196,14 +203,34 @@ static NSInteger secLine = 50;
     [self createExplainLabelPointX:lineX pointY:lineY withTextColorString:color andTextString:text percent:(NSString *)percent];
 }
 
-//画圆
+//画扇形分区域
 - (void)drawCircleOnTheContext:(CGContextRef)context WithRadius:(CGFloat)radiu StartAngle:(CGFloat)startAngle EndAngle:(CGFloat)endAngle{
-    CGContextAddArc(context, CENTER_X, CENTER_Y, radiu, startAngle, endAngle, 0);
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, CENTER_X, CENTER_Y);
+    CGPathAddArc(path, NULL, self.bounds.size.width / 2, self.bounds.size.height / 2, radiu, startAngle, endAngle, 0);
+    CGContextAddPath(context, path);
+    [pathArray addObject:(__bridge id _Nonnull)(path)];
 }
 
 //完成绘画
 - (void)endDrawingOnTheContext:(CGContextRef)context withType:(CGPathDrawingMode)type{
     CGContextDrawPath(context, type);
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint touchPoint = [touch locationInView:self];
+    
+    for (NSString *path in pathArray) {
+        CGMutablePathRef pathRef = (__bridge CGMutablePathRef)(path);
+        if (CGPathContainsPoint(pathRef, NULL, touchPoint, NO)) {
+            //NSLog(@"%ld",[pathArray indexOfObject:path]);
+            if ([self.delegate respondsToSelector:@selector(didSelectCircleViewAtIndex:)]) {
+                [self.delegate didSelectCircleViewAtIndex:[pathArray indexOfObject:path]];
+            }
+        }
+    }
 }
 
 - (void)createExplainLabelPointX:(CGFloat)pointX pointY:(CGFloat)pointY withTextColorString:(NSString *)colorStr andTextString:(NSString *)text percent:(NSString *)percent{
@@ -227,7 +254,7 @@ static NSInteger secLine = 50;
 }
 
 
-//颜色转换
+//颜色转换(建议写个类目)
 - (UIColor *) colorWithHexString: (NSString *)color alpha:(CGFloat)alpha{
     
     NSString *cString = [[color stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
