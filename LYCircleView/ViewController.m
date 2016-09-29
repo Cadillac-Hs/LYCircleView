@@ -31,7 +31,7 @@
 }
 
 - (NSArray *)percentOfTheCircle{
-    return @[@"20", @"34",@"16", @"10", @"20"];
+    return @[@"39.7",@"19.3",@"18.0",@"22.6",@"0.4"];
 }
 
 - (NSArray *)textStringOfCircle{

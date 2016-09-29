@@ -37,8 +37,6 @@ static NSInteger secLine = 50;
     NSInteger totalAngle;
     
     CGFloat radius;
-    
-    void (^sucBlock)(NSInteger index);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -87,17 +85,22 @@ static NSInteger secLine = 50;
         return;
     }
     //检查百分比数组
-    CGFloat totalPercent = 0.0;
+    //NSRoundPlain,   取整
+    //NSRoundDown,    只舍不入
+    //NSRoundUp,      只入不舍
+    //NSRoundBankers  四舍五入
+    NSDecimalNumber *totalPercent = [NSDecimalNumber decimalNumberWithString:@"0.00"];
     
     for (NSString *percent in percentArray) {
         if ([percent floatValue] <= 0) {
             canDraw = NO;
             return;
         }
-        totalPercent = totalPercent + [percent floatValue];
+        NSDecimalNumber *value = [NSDecimalNumber decimalNumberWithString:percent];
+        totalPercent = [totalPercent decimalNumberByAdding:value];
     }
     
-    if (totalPercent != 100) {
+    if ([totalPercent integerValue] != 100) {
         canDraw = NO;
         return;
     }
@@ -183,7 +186,7 @@ static NSInteger secLine = 50;
 - (void)drawLineOnTheContext:(CGContextRef)context angle:(double)angle withHexColorString:(NSString *)color andTextString:(NSString *)text percent:(NSString *)percent{
     CGFloat pointX = COS(angle);
     CGFloat pointY = SIN(angle);
-    if (totalAngle >= 90 && totalAngle < 180) {
+    if (totalAngle >= 90.0 && totalAngle < 180) {
         pointX = -pointX;
     }
     if (totalAngle >= 180 && totalAngle < 270) {
